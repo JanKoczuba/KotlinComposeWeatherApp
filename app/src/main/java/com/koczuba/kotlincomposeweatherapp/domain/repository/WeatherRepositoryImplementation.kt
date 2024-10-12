@@ -50,8 +50,25 @@ class WeatherRepositoryImplementation @Inject constructor(
 
     }
 
-    private fun makeWeather(weather: WeatherForecastResponse): List<Weather> {
- TODO()
+    private fun makeWeather(weathers: WeatherForecastResponse): List<Weather> {
+        val city = weathers.city.name
+        return weathers.list.map { weather ->
+            val date = getDate(weather.dt)
+            val dayName = getDayName(date)
+            Weather(
+                city = city,
+                dayName = dayName,
+                fullDate = date,
+                description = weather.weather.first().description,
+                temp = weather.main.temp,
+                minTemp = weather.main.tempMin,
+                maxTemp = weather.main.tempMax,
+                icon = weather.weather.first().icon
+            )
+
+
+        }
+
     }
 
 
@@ -59,8 +76,12 @@ class WeatherRepositoryImplementation @Inject constructor(
         try {
             val todaysWeatherResponse = api.getTodaysWeather(lat, long)
             val weatherForecastResponse = api.getWeatherForecast(lat, long)
-
-                return Resource.Success(WeatherForecast(makeWeather(todaysWeatherResponse), emptyList()))
+            return Resource.Success(
+                WeatherForecast(
+                    makeWeather(todaysWeatherResponse),
+                    makeWeather(weatherForecastResponse)
+                )
+            )
         } catch (e: Exception) {
             return Resource.Error("An unknown error occured.")
         }
