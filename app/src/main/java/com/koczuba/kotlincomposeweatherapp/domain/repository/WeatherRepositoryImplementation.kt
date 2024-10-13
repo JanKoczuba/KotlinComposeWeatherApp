@@ -1,6 +1,5 @@
 package com.koczuba.kotlincomposeweatherapp.domain.repository
 
-import android.annotation.SuppressLint
 import com.koczuba.kotlincomposeweatherapp.data.OpenWeatherApi
 import com.koczuba.kotlincomposeweatherapp.data.reponses.todaysweather.TodaysWeatherResponse
 import com.koczuba.kotlincomposeweatherapp.data.reponses.weatherforecast.WeatherForecastResponse
@@ -8,12 +7,8 @@ import com.koczuba.kotlincomposeweatherapp.domain.models.Weather
 import com.koczuba.kotlincomposeweatherapp.domain.models.WeatherForecast
 import com.koczuba.kotlincomposeweatherapp.utils.Resource
 import dagger.hilt.android.scopes.ActivityScoped
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.Locale
-import java.util.TimeZone
 import javax.inject.Inject
 
 
